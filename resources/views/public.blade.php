@@ -116,27 +116,21 @@
     </div>
     <ul class="nav nav-pills flex-column mt-3">
       <li class="nav-item">
-        <a href="/dashboard" class="nav-link {{ request()->is('dashboard*') ? 'active' : '' }}">
+        <a href="/" class="nav-link {{ request()->is('dashboard*') ? 'active' : '' }}">
           <i class="bi bi-house-door"></i>
           <span>Dashboard</span>
         </a>
       </li>
       <li>
-        <a href="/report" class="nav-link {{ request()->is('report*') ? 'active' : '' }}">
+        <a href="/public-report" class="nav-link {{ request()->is('report*') ? 'active' : '' }}">
           <i class="bi bi-file-earmark-bar-graph"></i>
           <span>Reports</span>
         </a>
       </li>
       <li>
-        <a href="/unit" class="nav-link {{ request()->is('unit*') ? 'active' : '' }}">
+        <a href="/public-unit" class="nav-link {{ request()->is('unit*') ? 'active' : '' }}">
           <i class="bi bi-truck"></i>
           <span>Unit List</span>
-        </a>
-      </li>
-      <li>
-        <a href="/user" class="nav-link">
-          <i class="bi bi-gear"></i>
-          <span>Settings</span>
         </a>
       </li>
     </ul>
@@ -162,10 +156,9 @@
       <span class="navbar-brand mb-0 h5 fw-bold">
         @yield('title', 'Dashboard')
       </span>
-      <a href="/logout" class="btn btn-link text-danger fw-bold">
-  <i class="bi bi-box-arrow-right"></i> Logout
-</a>
-
+      <a href="/login" class="btn btn-link text-warning fw-bold"> <i class="bi bi-person-circle"></i>
+        Login
+      </a>
 
     </nav>
 

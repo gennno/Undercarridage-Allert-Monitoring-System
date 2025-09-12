@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('public')
 
 @section('title', 'Report') 
 @push('styles')

@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('public')
 @section('title', 'Dashboard') 
 @push('styles')
   <style>
