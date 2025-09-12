@@ -45,11 +45,6 @@
     <!-- Card 1: Tombol -->
     <div class="category-card mb-3">
       <div>
-        <button class="btn btn-primary btn-custom" data-bs-toggle="modal" data-bs-target="#addModal">
-          <i class="bi bi-plus-circle"></i> Add
-        </button>
-      </div>
-      <div>
         <button class="btn btn-success btn-custom">
           <i class="bi bi-file-earmark-excel"></i> Export
         </button>
@@ -84,9 +79,6 @@
                   <a href="{{ url('/public-detail') }}" class="btn btn-info btn-sm">
                     <i class="bi bi-eye"></i>
                   </a>
-
-                  <button class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></button>
-                  <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
                 </div>
               </td>
             </tr>
@@ -103,9 +95,6 @@
                   <a href="{{ url('/public-detail') }}" class="btn btn-info btn-sm">
                     <i class="bi bi-eye"></i>
                   </a>
-
-                  <button class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></button>
-                  <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
                 </div>
               </td>
             </tr>

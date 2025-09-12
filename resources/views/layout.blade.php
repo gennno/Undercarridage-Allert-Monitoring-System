@@ -162,9 +162,9 @@
       <span class="navbar-brand mb-0 h5 fw-bold">
         @yield('title', 'Dashboard')
       </span>
-      <a href="/logout" class="btn btn-link text-danger fw-bold">
-  <i class="bi bi-box-arrow-right"></i> Logout
-</a>
+      <a href="/" class="btn btn-link text-danger fw-bold">
+        <i class="bi bi-box-arrow-right"></i> Logout
+      </a>
 
 
     </nav>

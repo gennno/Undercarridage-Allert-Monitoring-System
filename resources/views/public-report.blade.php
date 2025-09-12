@@ -45,14 +45,6 @@
     <!-- Card 1: Tombol -->
     <div class="category-card mb-3">
       <div>
-        <button class="btn btn-primary btn-custom" data-bs-toggle="modal" data-bs-target="#measurementModal">
-          <i class="bi bi-rulers"></i> Measurement
-        </button>
-        <button class="btn btn-warning btn-custom" data-bs-toggle="modal" data-bs-target="#replacementModal">
-          <i class="bi bi-tools"></i> Replacement
-        </button>
-      </div>
-      <div>
         <button class="btn btn-success btn-custom">
           <i class="bi bi-file-earmark-excel"></i> Export
         </button>
@@ -94,8 +86,6 @@
               <td>
                 <div class="d-flex gap-1 action-buttons">
                   <button class="btn btn-info btn-sm"><i class="bi bi-eye"></i></button>
-                  <button class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></button>
-                  <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
                 </div>
               </td>
             </tr><tr>
@@ -113,8 +103,6 @@
               <td>
                 <div class="d-flex gap-1 action-buttons">
                   <button class="btn btn-info btn-sm"><i class="bi bi-eye"></i></button>
-                  <button class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></button>
-                  <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
                 </div>
               </td>
             </tr>
@@ -133,8 +121,6 @@
               <td>
                 <div class="d-flex gap-1 action-buttons">
                   <button class="btn btn-info btn-sm"><i class="bi bi-eye"></i></button>
-                  <button class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></button>
-                  <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
                 </div>
               </td>
             </tr>

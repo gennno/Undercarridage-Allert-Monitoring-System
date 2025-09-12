@@ -175,35 +175,35 @@
         <div class="notification-card notification-reminder flex-wrap">
           <div>🔔 Reminder, DZ3007 Need Weekly Measurement</div>
           <div class="d-flex gap-2 flex-wrap">
-            <button class="btn-proceed">Proceed</button>
+            
             <button class="btn-close-custom">&times;</button>
           </div>
         </div>
         <div class="notification-card notification-warning flex-wrap">
           <div>⚠️ Warning, Sprocket on DZ3007 Need Replacement</div>
           <div class="d-flex gap-2 flex-wrap">
-            <button class="btn-proceed">Proceed</button>
+            
             <button class="btn-close-custom">&times;</button>
           </div>
         </div>
         <div class="notification-card notification-warning flex-wrap">
           <div>⚠️ Warning, Engine Overheating on PC200</div>
           <div class="d-flex gap-2 flex-wrap">
-            <button class="btn-proceed">Proceed</button>
+            
             <button class="btn-close-custom">&times;</button>
           </div>
         </div>
         <div class="notification-card notification-reminder flex-wrap">
           <div>🔔 Reminder, Drilling Rig DR150 Needs Calibration</div>
           <div class="d-flex gap-2 flex-wrap">
-            <button class="btn-proceed">Proceed</button>
+            
             <button class="btn-close-custom">&times;</button>
           </div>
         </div>
         <div class="notification-card notification-warning flex-wrap">
           <div>⚠️ Warning, Oil Pressure Low on DZ400</div>
           <div class="d-flex gap-2 flex-wrap">
-            <button class="btn-proceed">Proceed</button>
+            
             <button class="btn-close-custom">&times;</button>
           </div>
         </div>
@@ -214,10 +214,7 @@
     <div class="card p-3">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h5 class="fw-bold mb-0">Categories</h5>
-        <button class="btn btn-success add-btn">
-          <i class="bi bi-plus-circle me-1"></i> Add
-        </button>
-      </div>
+      </div>  
 
       <!-- Responsive Grid -->
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">

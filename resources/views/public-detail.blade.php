@@ -58,9 +58,6 @@
   <div class="card-custom">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h5 class="fw-bold mb-0"><i class="bi bi-gear"></i> Component List</h5>
-      <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addComponentModal">
-        <i class="bi bi-plus-circle"></i> Add Component
-      </button>
     </div>
 
     <div class="table-responsive">
@@ -72,7 +69,6 @@
             <th>HM</th>
             <th>Sisa Lifetime</th>
             <th>HM Penggantian</th>
-            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -82,12 +78,6 @@
             <td>3,500</td>
             <td>2,100</td>
             <td>5,600</td>
-            <td>
-              <div class="d-flex gap-1 action-buttons">
-                <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editComponentModal"><i class="bi bi-pencil-square"></i></button>
-                <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
-              </div>
-            </td>
           </tr>
           <tr>
             <td>Engine</td>
@@ -95,12 +85,6 @@
             <td>8,000</td>
             <td>1,000</td>
             <td>9,000</td>
-            <td>
-              <div class="d-flex gap-1 action-buttons">
-                <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editComponentModal"><i class="bi bi-pencil-square"></i></button>
-                <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
-              </div>
-            </td>
           </tr>
         </tbody>
       </table>
