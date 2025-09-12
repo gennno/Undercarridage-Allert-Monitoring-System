@@ -28,6 +28,12 @@
 @section('content')
 <div class="container p-3">
 
+ <!-- Tombol Back -->
+  <div class="mb-3">
+    <a href="/public-unit" class="btn btn-secondary btn-sm">
+      <i class="bi bi-arrow-left-circle"></i> Back
+    </a>
+  </div>
   <!-- Unit Info -->
   <div class="card-custom mb-4">
     <h4 class="fw-bold mb-3"><i class="bi bi-truck"></i> Unit Detail</h4>
