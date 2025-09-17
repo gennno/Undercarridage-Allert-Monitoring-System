@@ -1,5 +1,5 @@
 @extends('public')
-@section('title', 'Dashboard') 
+@section('title', 'Dashboard')
 @push('styles')
   <style>
     body {
@@ -162,7 +162,6 @@
         /* kasih ruang untuk tombol X */
       }
     }
-    
   </style>
 @endpush
 
@@ -172,80 +171,66 @@
     <div class="card p-3 mb-3">
       <h5 class="fw-bold mb-3">Notifications</h5>
       <div class="notification-container">
-        <div class="notification-card notification-reminder flex-wrap">
-          <div>🔔 Reminder, DZ3007 Need Weekly Measurement</div>
-          <div class="d-flex gap-2 flex-wrap">
-            
-            <button class="btn-close-custom">&times;</button>
+
+        {{-- Warning Notifications --}}
+        @foreach($warnings as $component)
+          <div class="notification-card notification-warning flex-wrap">
+            <div>
+              ⚠️ Warning, {{ $component->part_name }} on {{ $component->unit->code_number }}
+              has reached {{ $component->hm_current }}/{{ $component->hm_new }} HM
+            </div>
+            <div class="d-flex gap-2 flex-wrap">
+              <button class="btn-proceed">Proceed</button>
+              <button class="btn-close-custom">&times;</button>
+            </div>
           </div>
-        </div>
-        <div class="notification-card notification-warning flex-wrap">
-          <div>⚠️ Warning, Sprocket on DZ3007 Need Replacement</div>
-          <div class="d-flex gap-2 flex-wrap">
-            
-            <button class="btn-close-custom">&times;</button>
+        @endforeach
+
+        {{-- Reminder Notifications --}}
+        @foreach($reminders as $component)
+          <div class="notification-card notification-reminder flex-wrap">
+            <div>
+              🔔 Reminder, {{ $component->part_name }} on {{ $component->unit->code_number }}
+              has not been measured for more than 7 days
+            </div>
           </div>
-        </div>
-        <div class="notification-card notification-warning flex-wrap">
-          <div>⚠️ Warning, Engine Overheating on PC200</div>
-          <div class="d-flex gap-2 flex-wrap">
-            
-            <button class="btn-close-custom">&times;</button>
-          </div>
-        </div>
-        <div class="notification-card notification-reminder flex-wrap">
-          <div>🔔 Reminder, Drilling Rig DR150 Needs Calibration</div>
-          <div class="d-flex gap-2 flex-wrap">
-            
-            <button class="btn-close-custom">&times;</button>
-          </div>
-        </div>
-        <div class="notification-card notification-warning flex-wrap">
-          <div>⚠️ Warning, Oil Pressure Low on DZ400</div>
-          <div class="d-flex gap-2 flex-wrap">
-            
-            <button class="btn-close-custom">&times;</button>
-          </div>
-        </div>
+        @endforeach
+
       </div>
     </div>
+
+
 
     <!-- Category Section -->
     <div class="card p-3">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h5 class="fw-bold mb-0">Categories</h5>
-      </div>  
+      </div>
 
-      <!-- Responsive Grid -->
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-        <div class="col">
-          <div class="category-card position-relative" onclick="window.location.href='/public-info'"
-            style="cursor:pointer;">
-            <img src="{{ asset('images/dozer.jpeg') }}" alt="Dozer">
-            <div>
-              <h5 class="category-title">Dozer</h5>
+        @foreach($categories as $cat)
+          <div class="col">
+            <div class="category-card position-relative"
+              onclick="window.location.href='{{ route('public-dashboard.category', $cat->category) }}'"
+              style="cursor:pointer;">
+              @php
+                $imagePath = match (strtolower($cat->category)) {
+                  'dozer' => asset('images/dozer.jpeg'),
+                  'drilling' => asset('images/drilling.png'),
+                  'pc' => asset('images/pc.png'),
+                  default => asset('images/default.png'),
+                };
+              @endphp
+
+              <img src="{{ $imagePath }}" alt="{{ $cat->category }}">
+              <div>
+                <h5 class="category-title">{{ $cat->category }}</h5>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col">
-          <div class="category-card position-relative" onclick="window.location.href='/public-info'"
-            style="cursor:pointer;">
-            <img src="{{ asset('images/drilling.png') }}" alt="Drilling">
-            <div>
-              <h5 class="category-title">Drilling</h5>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="category-card position-relative" onclick="window.location.href='/public-info'"
-            style="cursor:pointer;">
-            <img src="{{ asset('images/pc.png') }}" alt="PC">
-            <div>
-              <h5 class="category-title">PC</h5>
-            </div>
-          </div>
-        </div>
+        @endforeach
       </div>
     </div>
+
   </div>
 @endsection

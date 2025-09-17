@@ -13,20 +13,21 @@ class Component extends Model
         'unit_id',
         'part_number',
         'part_name',
-        'hm_new',
-        'hm_current',
-        'status',
+        'nilai_standar',   // contoh: 180 mm
+        'nilai_limit',     // contoh: 158 mm
+        'hm_new',          // HM saat komponen dipasang
+        'hm_current',      // HM terakhir
+        'status',          // aktif, diganti, rusak
     ];
 
-    // Relasi: Component milik 1 unit
     public function unit()
     {
         return $this->belongsTo(Unit::class);
     }
 
-    // Relasi: Component punya banyak report
     public function reports()
     {
         return $this->hasMany(Report::class);
     }
 }
+

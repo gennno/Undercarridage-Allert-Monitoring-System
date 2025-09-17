@@ -3,10 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
 
-Route::get('/', function () {
-    return view('public-dashboard');
-});
+Route::get('/', [DashboardController::class, 'indexpublic'])->name('public-dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::get('/dashboard/{category}', [DashboardController::class, 'showCategory'])->name('dashboard.category');
+Route::get('/public-dashboard/{category}', [DashboardController::class, 'publicshowCategory'])->name('public-dashboard.category');
+
 
 Route::get('/login', [LoginController::class, 'showLoginForm']);
 Route::post('/login', [LoginController::class, 'login'])->name('login');
@@ -25,13 +29,6 @@ Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update
 
 // Hapus user
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
-
-Route::get('/public-info', function () {
-    return view('public-info');
-});
 
 Route::get('/public-report', function () {
     return view('public-report');
@@ -43,10 +40,6 @@ Route::get('/public-unit', function () {
 
 Route::get('/public-detail', function () {
     return view('public-detail');
-});
-
-Route::get('/info', function () {
-    return view('info');
 });
 
 Route::get('/report', function () {
@@ -64,3 +57,6 @@ Route::get('/detail', function () {
 Route::get('/profile', function () {
     return view('profile');
 });
+
+
+
