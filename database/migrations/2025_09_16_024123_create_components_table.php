@@ -15,8 +15,8 @@ return new class extends Migration
             $table->string('part_name');
             $table->decimal('nilai_standar', 8, 2)->nullable();  // mm
             $table->decimal('nilai_limit', 8, 2)->nullable();    // mm
-            $table->integer('hm_new')->nullable();               // HM saat pasang
-            $table->integer('hm_current')->nullable();           // HM terakhir
+            $table->integer('hm_standar')->nullable();
+            $table->integer('hm_penggantian')->nullable();
             $table->enum('status', ['aktif', 'diganti', 'rusak'])->default('aktif');
             $table->timestamps();
         });

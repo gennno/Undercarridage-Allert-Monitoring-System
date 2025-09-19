@@ -44,15 +44,21 @@
         <table class="table table-borderless">
           <tr>
             <th>Code Number</th>
-            <td>DR0011</td>
+            <td>{{ $unit->code_number }}</td>
           </tr>
           <tr>
             <th>Category</th>
-            <td>Drilling</td>
+            <td>{{ $unit->category }}</td>
           </tr>
           <tr>
             <th>Status</th>
-            <td><span class="badge bg-success">Aktif</span></td>
+            <td>
+  @if ($unit->status)
+    <span class="badge bg-success">Aktif</span>
+  @else
+    <span class="badge bg-secondary">Non-aktif</span>
+  @endif
+</td>
           </tr>
         </table>
       </div>
@@ -81,32 +87,49 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Hydraulic Pump</td>
-            <td>40%</td>
-            <td>3,500</td>
-            <td>2,100</td>
-            <td>5,600</td>
-            <td>
-              <div class="d-flex gap-1 action-buttons">
-                <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editComponentModal"><i class="bi bi-pencil-square"></i></button>
-                <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>Engine</td>
-            <td>70%</td>
-            <td>8,000</td>
-            <td>1,000</td>
-            <td>9,000</td>
-            <td>
-              <div class="d-flex gap-1 action-buttons">
-                <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editComponentModal"><i class="bi bi-pencil-square"></i></button>
-                <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
-              </div>
-            </td>
-          </tr>
+          @foreach ($unit->components as $component)
+<tr>
+  <td>{{ $component->part_name }}</td>
+  <td>
+    @php
+      $worn = $component->hm_current - $component->hm_new;
+      $lifetime = $component->nilai_standar - $component->nilai_limit;
+      $worn_percent = $lifetime > 0 ? round(($worn / $lifetime) * 100) : 0;
+    @endphp
+    {{ $worn_percent }}%
+  </td>
+  <td>{{ number_format($component->hm_current) }}</td>
+  <td>{{ number_format($component->nilai_limit) }}</td>
+  <td>{{ number_format($component->hm_new + $component->nilai_limit) }}</td>
+  <td>
+    <div class="d-flex gap-1 action-buttons">
+      <button class="btn btn-warning btn-sm btn-edit-component"
+    data-id="{{ $component->id }}"
+    data-unit_id="{{ $component->unit_id }}"
+    data-part_number="{{ $component->part_number }}"
+    data-part_name="{{ $component->part_name }}"
+    data-hm_current="{{ $component->hm_current }}"
+    data-hm_new="{{ $component->hm_new }}"
+    data-nilai_standar="{{ $component->nilai_standar }}"
+    data-nilai_limit="{{ $component->nilai_limit }}"
+    data-status="{{ $component->status }}"
+    data-bs-toggle="modal"
+    data-bs-target="#editComponentModal">
+    <i class="bi bi-pencil-square"></i>
+</button>
+
+      <form action="{{ route('component.destroy', $component->id) }}" method="POST" onsubmit="return confirm('Hapus unit ini?');">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn btn-danger btn-sm">
+        <i class="bi bi-trash"></i>
+    </button>
+</form>
+
+  </td>
+</tr>
+@endforeach
+
         </tbody>
       </table>
     </div>
@@ -122,26 +145,41 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
-        <form>
+       <form method="POST" action="{{ route('component.store') }}">
+          @csrf
+          <input type="hidden" name="unit_id" value="{{ $unit->id }}" class="form-control" required>
           <div class="mb-3">
-            <label class="form-label">Component Name</label>
-            <input type="text" class="form-control" required>
+            <label class="form-label">Part Number</label>
+            <input type="text" name="part_number" class="form-control" required>
           </div>
           <div class="mb-3">
-            <label class="form-label">Worn (%)</label>
-            <input type="number" class="form-control" required>
+            <label class="form-label">Part Name (%)</label>
+            <input type="text" name="part_name" class="form-control" required>
           </div>
           <div class="mb-3">
-            <label class="form-label">HM</label>
-            <input type="number" class="form-control" required>
+            <label class="form-label">Nilai Standar</label>
+            <input type="number" name="nilai_standar" class="form-control" required>
           </div>
           <div class="mb-3">
-            <label class="form-label">Sisa Lifetime</label>
-            <input type="number" class="form-control" required>
+            <label class="form-label">Nilai Limit</label>
+            <input type="number" name="nilai_limit" class="form-control" required>
           </div>
           <div class="mb-3">
-            <label class="form-label">HM Penggantian</label>
-            <input type="number" class="form-control" required>
+            <label class="form-label">HM New</label>
+            <input type="number" name="hm_new" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">HM Current</label>
+            <input type="number" name="hm_current" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select name="status" class="form-select" required>
+              <option value="">-- Pilih Status --</option>
+              <option value="aktif">Aktif</option>
+              <option value="diganti">Diganti</option>
+              <option value="rusak">Rusak</option>
+            </select>
           </div>
           <button type="submit" class="btn btn-primary">Save</button>
         </form>
@@ -159,33 +197,58 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form id="editComponentForm" method="POST" enctype="multipart/form-data" action="">
+    @csrf
+    @method('PUT')
+         <input type="hidden" name="component_id" id="edit-component_id" value="{{ $component->id }}">
+          <input type="hidden" name="unit_id" id="edit-unit_id" value="{{ $component->unit_id }}">
           <div class="mb-3">
-            <label class="form-label">Component Name</label>
-            <input type="text" class="form-control" value="Hydraulic Pump">
+            <label class="form-label">Part Number</label>
+            <input type="text" name="part_number" id="edit-part_number" class="form-control" required>
           </div>
+
           <div class="mb-3">
-            <label class="form-label">Worn (%)</label>
-            <input type="number" class="form-control" value="40">
+            <label class="form-label">Part Name (%)</label>
+            <input type="text" name="part_name" id="edit-part_name" class="form-control" required>
           </div>
+
           <div class="mb-3">
-            <label class="form-label">HM</label>
-            <input type="number" class="form-control" value="3500">
+            <label class="form-label">Nilai Standar</label>
+            <input type="number" name="nilai_standar" id="edit-nilai_standar" class="form-control" required>
           </div>
+
           <div class="mb-3">
-            <label class="form-label">Sisa Lifetime</label>
-            <input type="number" class="form-control" value="2100">
+            <label class="form-label">Nilai Limit</label>
+            <input type="number" name="nilai_limit" id="edit-nilai_limit" class="form-control" required>
           </div>
+
           <div class="mb-3">
-            <label class="form-label">HM Penggantian</label>
-            <input type="number" class="form-control" value="5600">
+            <label class="form-label">HM New</label>
+            <input type="number" name="hm_new" id="edit-hm_new" class="form-control" required>
           </div>
-          <button type="submit" class="btn btn-warning">Update</button>
+
+          <div class="mb-3">
+            <label class="form-label">HM Current</label>
+            <input type="number" name="hm_current" id="edit-hm_current" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select class="form-select" name="status" id="edit-status" required>
+              <option value="">-- Pilih Status --</option>
+              <option value="aktif">Aktif</option>
+              <option value="diganti">Diganti</option>
+              <option value="rusak">Rusak</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Save</button>
         </form>
       </div>
     </div>
   </div>
 </div>
+
 
 @endsection
 
@@ -202,5 +265,28 @@
       scrollX: true
     });
   });
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const editButtons = document.querySelectorAll(".btn-edit-component");
+    const form = document.getElementById("editComponentForm");
+
+    editButtons.forEach(btn => {
+        btn.addEventListener("click", function() {
+            document.getElementById("edit-component_id").value = this.dataset.id;
+            document.getElementById("edit-unit_id").value = this.dataset.unit_id;
+            document.getElementById("edit-part_number").value = this.dataset.part_number;
+            document.getElementById("edit-part_name").value = this.dataset.part_name;
+            document.getElementById("edit-nilai_standar").value = this.dataset.nilai_standar;
+            document.getElementById("edit-nilai_limit").value = this.dataset.nilai_limit;
+            document.getElementById("edit-hm_new").value = this.dataset.hm_new;
+            document.getElementById("edit-hm_current").value = this.dataset.hm_current;
+            document.getElementById("edit-status").value = this.dataset.status;
+
+            // set form action sesuai id component
+            form.action = "/component/" + this.dataset.id;
+        });
+    });
+});
 </script>
 @endpush

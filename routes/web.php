@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UnitController;
 use App\Http\Controllers\DashboardController;
 
 Route::get('/', [DashboardController::class, 'indexpublic'])->name('public-dashboard');
@@ -46,17 +47,28 @@ Route::get('/report', function () {
     return view('report');
 });
 
-Route::get('/unit', function () {
-    return view('unit');
-});
+Route::get('/unit', [UnitController::class, 'index'])->name('units.index');
+Route::get('/unit/{unit}', [UnitController::class, 'show'])->name('units.show');
+Route::post('/unit', [UnitController::class, 'store'])->name('units.store');
+Route::get('/units/{id}/edit', [UnitController::class, 'edit'])->name('units.edit');
+Route::put('/units/{id}', [UnitController::class, 'update'])->name('units.update');
+
+// Route::get('/unit/{unit}/edit', [UnitController::class, 'edit'])->name('units.edit');
+Route::delete('/units/{id}', [UnitController::class, 'destroy'])->name('units.destroy');
 
 Route::get('/detail', function () {
     return view('detail');
 });
 
+Route::post('/componentstore', [UnitController::class, 'componentstore'])->name('component.store');
+Route::delete('/component/{id}', [UnitController::class, 'componentdestroy'])->name('component.destroy');
+Route::get('/component/{id}/edit', [UnitController::class, 'componentedit'])->name('component.edit');
+Route::put('/component/{id}', [UnitController::class, 'componentupdate'])->name('component.update');
+
+
+
+// Route::get('/units/{id}', [UnitController::class, 'show'])->name('units.show');
+
 Route::get('/profile', function () {
     return view('profile');
 });
-
-
-

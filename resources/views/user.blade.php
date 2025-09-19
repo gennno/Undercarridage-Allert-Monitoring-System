@@ -38,8 +38,8 @@
                 <td>
                   <div class="d-flex gap-1 action-buttons">
                     <!-- <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-sm">
-                          <i class="bi bi-pencil-square"></i>
-                        </a> -->
+                              <i class="bi bi-pencil-square"></i>
+                            </a> -->
                     <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editUserModal"
                       data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-email="{{ $user->email }}"
                       data-role="{{ $user->role }}">
@@ -104,78 +104,78 @@
   </div>
 
   <!-- Modal Edit User -->
-<div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Edit User</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <!-- Form Update -->
-        <form id="editUserForm" method="POST">
-          @csrf
-          @method('PUT')
-          <input type="hidden" name="id" id="edit-id">
+  <div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Form Update -->
+          <form id="editUserForm" method="POST">
+            @csrf
+            @method('PUT')
+            <input type="hidden" name="id" id="edit-id">
 
-          <div class="mb-3">
-            <label class="form-label">Name</label>
-            <input type="text" name="name" id="edit-name" class="form-control" required />
-          </div>
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input type="text" name="name" id="edit-name" class="form-control" required />
+            </div>
 
-          <div class="mb-3">
-            <label class="form-label">Email</label>
-            <input type="email" name="email" id="edit-email" class="form-control" required />
-          </div>
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" name="email" id="edit-email" class="form-control" required />
+            </div>
 
-          <div class="mb-3">
-            <label class="form-label">Role</label>
-            <select name="role" id="edit-role" class="form-control" required>
-              <option value="Admin">Admin</option>
-              <option value="User">User</option>
-            </select>
-          </div>
+            <div class="mb-3">
+              <label class="form-label">Role</label>
+              <select name="role" id="edit-role" class="form-control" required>
+                <option value="Admin">Admin</option>
+                <option value="User">User</option>
+              </select>
+            </div>
 
-          <div class="mb-3">
-            <label class="form-label">Password (opsional)</label>
-            <input type="password" name="password" id="edit-password" class="form-control" minlength="6"
-              placeholder="Minimal 6 karakter, biarkan kosong jika tidak ganti" />
-          </div>
+            <div class="mb-3">
+              <label class="form-label">Password (opsional)</label>
+              <input type="password" name="password" id="edit-password" class="form-control" minlength="6"
+                placeholder="Minimal 6 karakter, biarkan kosong jika tidak ganti" />
+            </div>
 
-          <button type="submit" class="btn btn-primary">Update User</button>
-        </form>
+            <button type="submit" class="btn btn-primary">Update User</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
 @endsection
 @push('scripts')
-<script>
-  $(document).ready(function () {
-    $('#userTable').DataTable({
-      paging: true,
-      searching: true,
-      ordering: true,
-      info: true,
-      lengthChange: true,
-      pageLength: 5,
-      scrollX: true
+  <script>
+    $(document).ready(function () {
+      $('#userTable').DataTable({
+        paging: true,
+        searching: true,
+        ordering: true,
+        info: true,
+        lengthChange: true,
+        pageLength: 5,
+        scrollX: true
+      });
+
+      $('#editUserModal').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget);
+        let id = button.data('id');
+        let name = button.data('name');
+        let email = button.data('email');
+        let role = button.data('role');
+
+        $('#edit-id').val(id);
+        $('#edit-name').val(name);
+        $('#edit-email').val(email);
+        $('#edit-role').val(role);
+
+        $('#editUserForm').attr('action', '/users/' + id);
+      });
     });
-
-    $('#editUserModal').on('show.bs.modal', function (event) {
-      let button = $(event.relatedTarget); 
-      let id = button.data('id');
-      let name = button.data('name');
-      let email = button.data('email');
-      let role = button.data('role');
-
-      $('#edit-id').val(id);
-      $('#edit-name').val(name);
-      $('#edit-email').val(email);
-      $('#edit-role').val(role);
-
-      $('#editUserForm').attr('action', '/users/' + id);
-    });
-  });
-</script>
+  </script>
 @endpush

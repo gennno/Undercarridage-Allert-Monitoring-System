@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('code_number')->unique();
             $table->string('category')->nullable();
             $table->string('name');
+            $table->string('hm');
             $table->string('photo')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
